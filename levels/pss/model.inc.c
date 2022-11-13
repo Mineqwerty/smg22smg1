@@ -1,14 +1,5 @@
-Lights1 pss_dl_f3dlite_material_lights = gdSPDefLights1(
-	0x7F, 0x32, 0x43,
-	0xFF, 0x6C, 0x8D, 0x28, 0x28, 0x28);
 
-Lights1 pss_dl_f3dlite_material_001_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFF, 0xFF, 0xFF, 0x28, 0x28, 0x28);
 
-Lights1 pss_dl_f3dlite_material_002_lights = gdSPDefLights1(
-	0x3E, 0x18, 0x2,
-	0x82, 0x3B, 0x8, 0x28, 0x28, 0x28);
 
 Vtx pss_dl_Plane_mesh_layer_1_vtx_0[4] = {
 	{{{-2214, 0, 2214},0, {-16, 1008},{0x0, 0x7F, 0x0, 0x0}}},
@@ -1609,7 +1600,8 @@ Gfx mat_pss_dl_f3dlite_material[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsSPSetLights1(pss_dl_f3dlite_material_lights),
+    gsSPLightColor(LIGHT_1, 0xff6c8dff),
+    gsSPLightColor(LIGHT_2, 0x7f3243ff),
 	gsSPEndDisplayList(),
 };
 
@@ -1617,7 +1609,8 @@ Gfx mat_pss_dl_f3dlite_material_001[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsSPSetLights1(pss_dl_f3dlite_material_001_lights),
+    gsSPLightColor(LIGHT_1, 0xffffffff),
+    gsSPLightColor(LIGHT_2, 0x7f7f7fff),
 	gsSPEndDisplayList(),
 };
 
@@ -1625,7 +1618,8 @@ Gfx mat_pss_dl_f3dlite_material_002[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsSPSetLights1(pss_dl_f3dlite_material_002_lights),
+    gsSPLightColor(LIGHT_1, 0x823b08ff),
+    gsSPLightColor(LIGHT_2, 0x3e1802ff),
 	gsSPEndDisplayList(),
 };
 

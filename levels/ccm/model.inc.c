@@ -1,6 +1,3 @@
-Lights1 ccm_dl_f3dlite_material_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFF, 0xFF, 0xFF, 0x28, 0x28, 0x28);
 
 Vtx ccm_dl_Plane_mesh_layer_1_vtx_0[4] = {
 	{{{-1475, 0, 1475},0, {-16, 1008},{0x0, 0x7F, 0x0, 0x0}}},
@@ -20,7 +17,8 @@ Gfx mat_ccm_dl_f3dlite_material[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsSPSetLights1(ccm_dl_f3dlite_material_lights),
+    gsSPLightColor(LIGHT_1, 0xffffffff),
+    gsSPLightColor(LIGHT_2, 0x7f7f7fff),
 	gsSPEndDisplayList(),
 };
 

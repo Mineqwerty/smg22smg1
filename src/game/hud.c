@@ -606,7 +606,7 @@ else {
 #ifdef PUPPYPRINT
         print_set_envcolour(255, 255, 255, 255);
 #endif
-    
+    /*
     ALIGNED8 static const Texture texture_emerald_grove[] = {
         #include "actors/amp/emerald_grove.rgba16.inc.c" 
     };
@@ -664,6 +664,8 @@ else {
         gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
             gMarioState->areaIntro = 0;
             }
+
+            */
     
     }
 }

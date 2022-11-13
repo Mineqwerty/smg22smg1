@@ -1,10 +1,4 @@
-Lights1 castle_inside_dl_f3dlite_material_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFF, 0xFF, 0xFF, 0x28, 0x28, 0x28);
 
-Lights1 castle_inside_dl_f3dlite_material_001_lights = gdSPDefLights1(
-	0x0, 0x0, 0x0,
-	0x0, 0x0, 0x0, 0x28, 0x28, 0x28);
 
 Gfx castle_inside_dl_tlbase_rgba16_aligner[] = {gsSPEndDisplayList()};
 u8 castle_inside_dl_tlbase_rgba16[] = {
@@ -2747,7 +2741,8 @@ Gfx mat_castle_inside_dl_f3dlite_material[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsSPSetLights1(castle_inside_dl_f3dlite_material_lights),
+    gsSPLightColor(LIGHT_1, 0xffffffff),
+    gsSPLightColor(LIGHT_2, 0x7f7f7fff),
 	gsSPEndDisplayList(),
 };
 
@@ -2755,7 +2750,8 @@ Gfx mat_castle_inside_dl_f3dlite_material_001[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsSPSetLights1(castle_inside_dl_f3dlite_material_001_lights),
+    gsSPLightColor(LIGHT_1, 0xff),
+    gsSPLightColor(LIGHT_2, 0xff),
 	gsSPEndDisplayList(),
 };
 
