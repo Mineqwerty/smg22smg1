@@ -19,7 +19,9 @@ void intro_peach_set_pos_and_opacity(struct Object *obj, f32 targetOpacity, f32 
     obj->oOpacity = newOpacity;
 }
 
+
 void bhv_intro_peach_loop(void) {
+    
     switch (o->oAction) {
         case PEACH_ACT_INIT:
             o->oAction++;
@@ -46,6 +48,50 @@ void bhv_intro_peach_loop(void) {
 
             if ((o->oTimer > 100) && (get_dialog_id() == DIALOG_NONE)) {
                 o->oAction++;
+            }
+
+            if (o->oTimer > 180) {
+                
+                extern const u8 texture_roblox_eye[];
+                extern const u8 texture_roblox_nose[];
+                extern const u8 texture_roblox_mouth[];
+
+                extern const u8 texture_roblox_face_l[];
+                extern const u8 texture_roblox_face_r[];
+
+                extern u8 peach_seg5_texture_05001228[];
+                extern u8 peach_seg5_texture_05001A28[];
+                extern u8 peach_seg5_texture_05002228[];
+
+                extern u8 peach_seg5_texture_05002E28[];
+
+                extern u8 peach_seg5_texture_05003E28[];
+
+                extern u8 castle_grounds_seg7_texture_0700C9E8[];
+                extern u8 castle_grounds_seg7_texture_0700D9E8[];
+                
+                u8 *peachEye1 = segmented_to_virtual(&peach_seg5_texture_05001228);
+                u8 *peachEye2 = segmented_to_virtual(&peach_seg5_texture_05001A28);
+                u8 *peachEye3 = segmented_to_virtual(&peach_seg5_texture_05002228);
+
+                u8 *peachLips = segmented_to_virtual(&peach_seg5_texture_05002E28);
+
+                u8 *peachNose = segmented_to_virtual(&peach_seg5_texture_05003E28);
+
+                u8 *peachLetterL = segmented_to_virtual(&castle_grounds_seg7_texture_0700C9E8);
+                u8 *peachLetterR = segmented_to_virtual(&castle_grounds_seg7_texture_0700D9E8);
+
+                dma_read(peachEye1, texture_roblox_eye, texture_roblox_eye + 2048);
+                dma_read(peachEye2, texture_roblox_eye, texture_roblox_eye + 2048);
+                dma_read(peachEye3, texture_roblox_eye, texture_roblox_eye + 2048);
+
+                dma_read(peachLips, texture_roblox_mouth, texture_roblox_mouth + 2048);
+
+                dma_read(peachNose, texture_roblox_nose, texture_roblox_nose + 2048);
+
+                dma_read(peachLetterL, texture_roblox_face_l, texture_roblox_face_l + 4096);
+                dma_read(peachLetterR, texture_roblox_face_r, texture_roblox_face_r + 4096);
+                
             }
             break;
 

@@ -153,7 +153,7 @@ static void monty_mole_act_select_hole(void) {
         cur_obj_play_sound_2(SOUND_OBJ2_MONTY_MOLE_APPEAR);
 
         // Mark hole as unavailable
-        o->oMontyMoleCurrentHole->oMontyMoleHoleCooldown = -1;
+        //o->oMontyMoleCurrentHole->oMontyMoleHoleCooldown = -1;
 
         // Position at hole
         o->oPosX = o->oMontyMoleCurrentHole->oPosX;
@@ -208,7 +208,7 @@ static void monty_mole_act_spawn_rock(void) {
             && abs_angle_diff(o->oAngleToMario, o->oMoveAngleYaw) < 0x4000
             && (rock = spawn_object(o, MODEL_PEBBLE, bhvMontyMoleRock)) != NULL) {
             o->prevObj = rock;
-            o->oAction = MONTY_MOLE_ACT_THROW_ROCK;
+            //o->oAction = MONTY_MOLE_ACT_THROW_ROCK;
         } else {
             o->oAction = MONTY_MOLE_ACT_BEGIN_JUMP_INTO_HOLE;
         }
@@ -301,7 +301,7 @@ static void monty_mole_act_jump_out_of_hole(void) {
         if (o->oMontyMoleHeightRelativeToFloor < 50.0f) {
             o->oPosY = o->oFloorHeight + 50.0f;
             o->oAction = MONTY_MOLE_ACT_BEGIN_JUMP_INTO_HOLE;
-            o->oVelY = o->oGravity = 0.0f;
+            o->oVelY = o->oGravity = 0;
         }
     }
 }
@@ -337,7 +337,10 @@ void bhv_monty_mole_update(void) {
             monty_mole_act_select_hole();
             break;
         case MONTY_MOLE_ACT_RISE_FROM_HOLE:
-            monty_mole_act_rise_from_hole();
+            o->oAction = MONTY_MOLE_ACT_JUMP_OUT_OF_HOLE;
+            o->oVelY = 50.0f;
+            o->oGravity = -4.0f;
+            monty_mole_spawn_dirt_particles(0, 20);
             break;
         case MONTY_MOLE_ACT_SPAWN_ROCK:
             monty_mole_act_spawn_rock();
@@ -352,7 +355,10 @@ void bhv_monty_mole_update(void) {
             monty_mole_act_jump_into_hole();
             break;
         case MONTY_MOLE_ACT_HIDE:
-            monty_mole_act_hide();
+            o->oAction = MONTY_MOLE_ACT_JUMP_OUT_OF_HOLE;
+            o->oVelY = 50.0f;
+            o->oGravity = -4.0f;
+            monty_mole_spawn_dirt_particles(0, 20);
             break;
         case MONTY_MOLE_ACT_JUMP_OUT_OF_HOLE:
             monty_mole_act_jump_out_of_hole();

@@ -18,6 +18,8 @@ enum NoteAlloc {
     NOTE_ALLOC_GLOBAL_FREELIST = (1 << 3), // 0x8
 };
 
+extern u8 gFloorAudio;
+
 void process_notes(void);
 void seq_channel_layer_note_decay(struct SequenceChannelLayer *seqLayer);
 void seq_channel_layer_note_release(struct SequenceChannelLayer *seqLayer);

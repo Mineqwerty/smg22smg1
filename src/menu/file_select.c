@@ -379,10 +379,33 @@ void bhv_menu_button_init(void) {
  * Handles the functions of the button states and
  * object scale for each button.
  */
+
+void run_away_from_cursor(void) {
+    print_text(100, 100, "gamign");
+    if (o->oPosX < sClickPos[0]) {
+        o->oPosX -= 200.0f;
+        
+    }
+    else {
+        o->oPosX += 200.0f;
+    }
+
+    if (o->oPosY < sClickPos[1]) {
+        o->oPosY -= 200.0f;
+    }
+    else {
+        o->oPosY += 200.0f;
+    }
+}
+
+
 void bhv_menu_button_loop(void) {
     switch (gCurrentObject->oMenuButtonState) {
         case MENU_BUTTON_STATE_DEFAULT: // Button state
             gCurrentObject->oMenuButtonOrigPosZ = gCurrentObject->oPosZ;
+            run_away_from_cursor();
+            o->oMenuButtonOrigPosX -= 200.0f;
+
             break;
         case MENU_BUTTON_STATE_GROWING: // Switching from button to menu state
             if (sCurrentMenuLevel == MENU_LAYER_MAIN) {

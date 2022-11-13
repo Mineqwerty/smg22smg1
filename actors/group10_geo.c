@@ -10,3 +10,4 @@
 #include "bird/geo.inc.c"
 #include "peach/geo.inc.c"
 #include "yoshi/geo.inc.c"
+#include "monty_mole/geo.inc.c"

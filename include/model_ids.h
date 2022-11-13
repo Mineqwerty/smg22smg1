@@ -346,8 +346,8 @@
 #define MODEL_EYEROK_RIGHT_HAND           0x59        // eyerok_right_hand_geo
 
 // group 6
-#define MODEL_DL_MONTY_MOLE_HOLE          0x54        // monty_mole_hole_seg5_dl_05000840
-#define MODEL_MONTY_MOLE                  0x55        // monty_mole_geo
+#define MODEL_DL_MONTY_MOLE_HOLE          0x59        // monty_mole_hole_seg5_dl_05000840
+#define MODEL_MONTY_MOLE                  0x58        // monty_mole_geo
 #define MODEL_UKIKI                       0x56        // ukiki_geo
 #define MODEL_FWOOSH                      0x57        // fwoosh_geo
 
@@ -549,6 +549,13 @@
 #define MODEL_SILVER_COIN                 0xE2        // silver_coin_geo
 #define MODEL_SILVER_COIN_NO_SHADOW       0xE3        // silver_coin_no_shadow_geo
 #endif
+
+
+
+#define MODEL_WISE_MYSTICAL_TREE        0x100
+#define MODEL_BART        0x101
+
+
 
 // Menu Models (overwrites Level Geometry IDs)
 #define MODEL_MAIN_MENU_MARIO_SAVE_BUTTON         MODEL_LEVEL_GEOMETRY_03   // main_menu_geo_0001D0

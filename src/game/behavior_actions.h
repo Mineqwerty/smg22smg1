@@ -380,6 +380,8 @@ void bhv_hidden_red_coin_star_init(void);
 void bhv_hidden_red_coin_star_loop(void);
 void bhv_red_coin_init(void);
 void bhv_red_coin_loop(void);
+void bhv_moving_red_coin_init(void);
+void bhv_moving_red_coin_loop(void);
 void bhv_bowser_course_red_coin_star_loop(void);
 void bhv_hidden_star_init(void);
 void bhv_hidden_star_loop(void);
@@ -549,6 +551,15 @@ void bhv_intro_scene_loop(void);
 void bhv_dust_smoke_loop(void);
 void bhv_yoshi_loop(void);
 void bhv_volcano_trap_loop(void);
+
+void bhv_etrian_controller_loop(void);
+void bhv_etrian_intro_loop(void);
+void bhv_tree_pill_loop(void);
+void bhv_bart_controller_loop(void);
+void bhv_memory_leak_loop(void);
+
+void bhv_bart_init(void);
+void bhv_bart_loop(void);
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 

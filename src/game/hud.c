@@ -568,6 +568,8 @@ void render_hud(void) {
         }
 #endif
 
+if (gCurrLevelNum != LEVEL_WF) {
+
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {
             render_hud_coins();
         }
@@ -594,7 +596,10 @@ void render_hud(void) {
             }
 #endif
         }
-
+}
+else {
+    
+}
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_TIMER) {
             render_hud_timer();
         }
@@ -610,5 +615,64 @@ void render_hud(void) {
 #ifdef PUPPYPRINT
         print_set_envcolour(255, 255, 255, 255);
 #endif
+    
+    ALIGNED8 static const Texture texture_emerald_grove[] = {
+        #include "actors/amp/emerald_grove.rgba16.inc.c" 
+    };
+
+    ALIGNED8 static const Texture texture_emerald_grove_tl[] = {
+        #include "actors/amp/eg_tl.rgba16.inc.c" 
+    };
+    ALIGNED8 static const Texture texture_emerald_grove_tr[] = {
+        #include "actors/amp/eg_tr.rgba16.inc.c" 
+    };
+    ALIGNED8 static const Texture texture_emerald_grove_bl[] = {
+        #include "actors/amp/eg_bl.rgba16.inc.c" 
+    };
+    ALIGNED8 static const Texture texture_emerald_grove_br[] = {
+        #include "actors/amp/eg_br.rgba16.inc.c"  
+    };
+    ALIGNED8 static const Texture texture_ten_am[] = {
+        #include "actors/amp/10am.rgba16.inc.c"  
+    };
+    ALIGNED8 static const Texture texture_enemy_sensor[] = {
+        #include "actors/amp/enemysensor.rgba16.inc.c"  
+    };
+    ALIGNED8 static const Texture texture_abbey[] = {
+        #include "actors/amp/abbey.rgba16.inc.c"  
+    };
+    
+    
+        if (gMarioState->areaIntro == 1) {
+        //render_multi_image(&texture_emerald_grove, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+
+        gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
+
+        render_multi_image(&texture_emerald_grove_tl, 0, 0, 256, 128, 1, 1, G_CYC_COPY);
+        render_multi_image(&texture_emerald_grove_tr, 256, 0, 64, 128, 1, 1, G_CYC_COPY);
+        render_multi_image(&texture_emerald_grove_bl, 0, 128, 256, 128, 1, 1, G_CYC_COPY);
+        render_multi_image(&texture_emerald_grove_br, 256, 128, 64, 128, 1, 1, G_CYC_COPY);
+
+        
+
+        gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
+        }
+        else if (gMarioState->areaIntro == 2) {
+            print_small_text(160, 200, "Yggdrasil", PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, FONT_DEFAULT);
+        }
+        else if (gCurrLevelNum == LEVEL_WF) {
+            gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
+            render_multi_image(&texture_ten_am, 0, 0, 64, 32, 1, 1, G_CYC_COPY);
+        render_multi_image(&texture_enemy_sensor, 257, 208, 64, 32, 1, 1, G_CYC_COPY);
+        gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
+        }
+
+        if (gMarioState->areaIntro == 3) {
+            gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
+            render_multi_image(&texture_abbey, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+        gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
+            gMarioState->areaIntro = 0;
+            }
+    
     }
 }

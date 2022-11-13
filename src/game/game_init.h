@@ -50,6 +50,8 @@ extern u8 gControllerBits;
 extern u8 gIsConsole;
 extern u8 gCacheEmulated;
 extern u8 gBorderHeight;
+extern u8 gFuckUpScreen;
+extern u8 gPenis;
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG
 extern u8 gCustomDebugMode;
 #endif

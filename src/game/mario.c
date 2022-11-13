@@ -32,6 +32,8 @@
 #include "save_file.h"
 #include "sound_init.h"
 #include "rumble_init.h"
+#include "src/game/game_init.h"
+#include "audio/playback.h"
 
 
 /**************************************************
@@ -1697,6 +1699,14 @@ void queue_rumble_particles(struct MarioState *m) {
 s32 execute_mario_action(UNUSED struct Object *obj) {
     s32 inLoop = TRUE;
 
+    if (gPlayer1Controller->buttonPressed & L_JPAD) {
+        gFuckUpScreen = 1;
+    }
+    if (gPlayer1Controller->buttonPressed & R_JPAD) {
+        gPenis = 1;
+        
+    }
+
     // Updates once per frame:
     vec3f_get_dist_and_lateral_dist_and_angle(gMarioState->prevPos, gMarioState->pos, &gMarioState->moveSpeed, &gMarioState->lateralSpeed, &gMarioState->movePitch, &gMarioState->moveYaw);
     vec3f_copy(gMarioState->prevPos, gMarioState->pos);
@@ -1831,6 +1841,10 @@ void init_mario(void) {
 
     if (gMarioState->pos[1] < gMarioState->floorHeight) {
         gMarioState->pos[1] = gMarioState->floorHeight;
+    }
+
+    if (gCurrLevelNum == LEVEL_WF) {
+        gMarioState->areaIntro = 1;
     }
 
     gMarioState->marioObj->header.gfx.pos[1] = gMarioState->pos[1];

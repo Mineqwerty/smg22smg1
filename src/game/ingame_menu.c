@@ -26,6 +26,7 @@
 #include "config.h"
 #include "puppycam2.h"
 #include "main.h"
+#include "src/audio/playback.h"
 
 #ifdef VERSION_EU
 #undef LANGUAGE_FUNCTION
@@ -1356,7 +1357,7 @@ void do_cutscene_handler(void) {
     gCutsceneMsgTimer++;
 }
 
-#define PEACH_MESSAGE_TIMER 250
+#define PEACH_MESSAGE_TIMER 180
 
 #define STR_X  38
 #define STR_Y 142
@@ -1415,6 +1416,7 @@ void print_peach_letter_message(void) {
     // 20 increments after the start of the decrease, we're
     // back where we are, so reset everything at the end.
     if (gCutsceneMsgTimer > (PEACH_MESSAGE_TIMER + 20)) {
+        gFloorAudio = 1;
         gCutsceneMsgIndex = -1;
         gCutsceneMsgFade = 0; //! uselessly reset since the next execution will just set it to 0 again.
         gDialogID = DIALOG_NONE;

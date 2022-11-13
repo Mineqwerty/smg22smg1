@@ -331,4 +331,10 @@ extern const Gfx white_particle_small_dl_end[];
 extern const Gfx white_particle_small_dl[];
 extern const Gfx white_particle_small_unused_dl[];
 
+#include "test/header.h"
+
+#include "bart/geo_header.h"
+
+
+#include "bart/anim_header.h"
 #endif

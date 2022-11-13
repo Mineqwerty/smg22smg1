@@ -9,6 +9,8 @@
 #include "effects.h"
 #include "external.h"
 
+u8 gFloorAudio = 0;
+
 void note_set_resampling_rate(struct Note *note, f32 resamplingRateInput);
 
 #if defined(VERSION_EU) || defined(VERSION_SH)
@@ -595,6 +597,21 @@ void process_notes(void) {
 
             scale = note->adsrVolScale;
             frequency *= note->vibratoFreqScale * note->portamentoFreqScale;
+
+            if (gFloorAudio == 1) {
+            frequency *= 2;
+            frequency = (int) frequency;
+            frequency *= 0.5f;
+
+            if (frequency > 0.06f) {
+            frequency -= 0.06f;
+            }
+            else {
+                frequency += 0.12f;
+            }
+
+            }
+            
             cap = 3.99992f;
             if (gAiFrequency != 32006) {
                 frequency *= (32000.0f / (f32) gAiFrequency);

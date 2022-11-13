@@ -1,0 +1,16 @@
+extern Lights1 test_edgegrass_lights;
+extern Lights1 test_background_lights;
+extern u8 test__01_04__test_rgba16[];
+extern u8 test__01_12_test_rgba16[];
+extern u8 test__01_01_rgba16[];
+extern Vtx test_wall16_mesh_vtx_0[43];
+extern Gfx test_wall16_mesh_tri_0[];
+extern Vtx test_wall16_mesh_vtx_1[37];
+extern Gfx test_wall16_mesh_tri_1[];
+extern Vtx test_wall16_mesh_vtx_2[8];
+extern Gfx test_wall16_mesh_tri_2[];
+extern Gfx mat_test_foliage[];
+extern Gfx mat_revert_test_foliage[];
+extern Gfx mat_test_edgegrass[];
+extern Gfx mat_test_background[];
+extern Gfx test_wall16_mesh[];

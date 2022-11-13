@@ -9,6 +9,7 @@
 #include "game_init.h"
 #include "interaction.h"
 #include "mario_step.h"
+#include "src/game/area.h"
 
 #include "config.h"
 
@@ -355,7 +356,11 @@ s32 perform_ground_step(struct MarioState *m) {
         intendedPos[2] = m->pos[2] + m->floor->normal.y * (m->vel[2] / numSteps);
         intendedPos[1] = m->pos[1];
 
+        if (gCurrLevelNum == LEVEL_BBH) {
+        check_level_loop(intendedPos);
+        }
         stepResult = perform_ground_quarter_step(m, intendedPos);
+        
         if (stepResult == GROUND_STEP_LEFT_GROUND || stepResult == GROUND_STEP_HIT_WALL_STOP_QSTEPS) {
             break;
         }
@@ -369,6 +374,25 @@ s32 perform_ground_step(struct MarioState *m) {
         stepResult = GROUND_STEP_HIT_WALL;
     }
     return stepResult;
+}
+
+s32 check_level_loop(Vec3f intendedPos) {
+    if (intendedPos[0] < -16384.f) {
+        intendedPos[0] += 32768.f;
+        warp_camera(32768.f,0.f,0.f);
+    }
+    if (intendedPos[0] > 16384.f) {
+        intendedPos[0] -= 32768.f;
+        warp_camera(-32768.f,0.f,0.f);
+    }
+    if (intendedPos[2] < -16384.f) {
+        intendedPos[2] += 32768.f;
+        warp_camera(0.f,0.f,32768.f);
+    }
+    if (intendedPos[2] > 16384.f) {
+        intendedPos[2] -= 32768.f;
+        warp_camera(0.f,0.f,-32768.f);
+    }
 }
 
 // Horizontal dot product of surface normal
@@ -687,6 +711,10 @@ s32 perform_air_step(struct MarioState *m, u32 stepArg) {
         intendedPos[0] = m->pos[0] + m->vel[0] / numSteps;
         intendedPos[1] = m->pos[1] + m->vel[1] / numSteps;
         intendedPos[2] = m->pos[2] + m->vel[2] / numSteps;
+
+        if (gCurrLevelNum == LEVEL_BBH) {
+        check_level_loop(intendedPos);
+        }
 
         quarterStepResult = perform_air_quarter_step(m, intendedPos, stepArg);
 

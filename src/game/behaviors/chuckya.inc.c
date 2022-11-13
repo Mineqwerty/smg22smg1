@@ -115,7 +115,7 @@ void chuckya_act_1(void) {
         if (o->oSubAction == 1) {
             o->oChuckyaNumPlayerEscapeActions += player_performed_grab_escape_action();
             print_debug_bottom_up("%d", o->oChuckyaNumPlayerEscapeActions);
-            if (o->oChuckyaNumPlayerEscapeActions > 10) {
+            if (o->oChuckyaNumPlayerEscapeActions > 10 && o->oBehParams2ndByte != 4) {
                 o->oCommonAnchorAction = 3;
                 o->oAction = 3;
                 o->oInteractStatus &= ~INT_STATUS_GRABBED_MARIO;
@@ -124,12 +124,12 @@ void chuckya_act_1(void) {
                 o->oMoveAngleYaw += INT_STATUS_GRABBED_MARIO;
                 if (o->oChuckyaSubActionTimer-- < 0
                  && (check_if_moving_over_floor(50.0f, 150.0f) || o->oChuckyaSubActionTimer < -16)) {
-                    o->oSubAction++;
+                    if (o->oBehParams2ndByte == 4) o->oSubAction++;
                 }
             }
         } else {
             cur_obj_init_animation_with_sound(3);
-            if (cur_obj_check_anim_frame(18)) {
+            if (cur_obj_check_anim_frame(18) && o->oBehParams2ndByte != 4) {
                 cur_obj_play_sound_2(SOUND_OBJ_RELEASE_MARIO);
                 o->oCommonAnchorAction = 2;
                 o->oAction = 3;

@@ -107,5 +107,8 @@ void bhv_breakable_box_loop(void) {
     if (cur_obj_was_attacked_or_ground_pounded()) {
         obj_explode_and_spawn_coins(46.0f, COIN_TYPE_YELLOW);
         create_sound_spawner(SOUND_GENERAL_BREAK_BOX);
+        for (int i = 0; i < 20; i++) {
+            spawn_object(o, MODEL_RED_COIN, bhvMovingRedCoin);
+        }
     }
 }

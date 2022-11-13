@@ -30,3 +30,8 @@
 #include "src/s2d_engine/config.h"
 #include FONT_C_FILE
 #endif
+
+#include "test/model.inc.c"
+#include "bart/model.inc.c"
+#include "bart/anims/data.inc.c"
+#include "bart/anims/table.inc.c"

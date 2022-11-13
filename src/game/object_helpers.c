@@ -1302,6 +1302,10 @@ void obj_spawn_loot_yellow_coins(struct Object *obj, s32 numCoins, f32 baseYVel)
     obj_spawn_loot_coins(obj, numCoins, baseYVel, bhvSingleCoinGetsSpawned, 0, MODEL_YELLOW_COIN);
 }
 
+void obj_spawn_loot_red_coins(struct Object *obj, s32 numCoins, f32 baseYVel) {
+    obj_spawn_loot_coins(obj, numCoins, baseYVel, bhvSingleCoinGetsSpawned, 0, MODEL_YELLOW_COIN);
+}
+
 void cur_obj_spawn_loot_coin_at_mario_pos(void) {
     if (o->oNumLootCoins <= 0) {
         return;
