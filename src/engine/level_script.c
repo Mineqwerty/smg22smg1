@@ -31,7 +31,7 @@
 
 #include "config.h"
 
-#define NUM_PAINTINGS 45
+#define NUM_PAINTING_WARP_NODES 45
 
 #define CMD_GET(type, offset) (*(type *) (CMD_PROCESS_OFFSET(offset) + (u8 *) sCurrentCmd))
 
@@ -360,6 +360,8 @@ static void level_cmd_clear_level(void) {
     clear_area_graph_nodes();
     clear_areas();
     main_pool_pop_state();
+    // the game does a push on level load and a pop on level unload, we need to add another push to store state after the level has been loaded, so one more pop is needed
+    main_pool_pop_state();
     unmap_tlbs();
 
     sCurrentCmd = CMD_NEXT;
@@ -386,6 +388,7 @@ static void level_cmd_free_level_pool(void) {
             break;
         }
     }
+    main_pool_push_state();
 
     sCurrentCmd = CMD_NEXT;
 }
@@ -537,12 +540,12 @@ static void level_cmd_create_instant_warp(void) {
 
         warp = gAreas[sCurrAreaIndex].instantWarps + CMD_GET(u8, 2);
 
-        warp[0].id = 1;
+        warp[0].id = SURFACE_INSTANT_WARP_1B + CMD_GET(u8, 2);
         warp[0].area = CMD_GET(u8, 3);
 
-        vec3s_set(warp[0].displacement, CMD_GET(s16, 4),
-                                        CMD_GET(s16, 6),
-                                        CMD_GET(s16, 8));
+        warp[0].displacement[0] = CMD_GET(s32, 4);
+        warp[0].displacement[1] = CMD_GET(s32, 8);
+        warp[0].displacement[2] = CMD_GET(s32, 12);
     }
 
     sCurrentCmd = CMD_NEXT;
@@ -563,9 +566,9 @@ static void level_cmd_create_painting_warp_node(void) {
     if (sCurrAreaIndex != -1) {
         if (gAreas[sCurrAreaIndex].paintingWarpNodes == NULL) {
             gAreas[sCurrAreaIndex].paintingWarpNodes =
-                alloc_only_pool_alloc(sLevelPool, NUM_PAINTINGS * sizeof(struct WarpNode));
+                alloc_only_pool_alloc(sLevelPool, NUM_PAINTING_WARP_NODES * sizeof(struct WarpNode));
 
-            for (i = 0; i < NUM_PAINTINGS; i++) {
+            for (i = 0; i < NUM_PAINTING_WARP_NODES; i++) {
                 gAreas[sCurrAreaIndex].paintingWarpNodes[i].id = 0;
             }
         }

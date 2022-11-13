@@ -1,5 +1,4 @@
 #include <ultra64.h>
-#include <PR/os_internal_reg.h>
 
 #include "sm64.h"
 #include "gfx_dimensions.h"
@@ -30,6 +29,7 @@
 #include "puppycam2.h"
 #include "debug_box.h"
 #include "vc_check.h"
+#include "vc_ultra.h"
 #include "profiling.h"
 
 // First 3 controller slots
@@ -43,8 +43,9 @@ struct GfxPool *gGfxPool;
 
 // OS Controllers
 OSContStatus gControllerStatuses[4];
-OSContPad gControllerPads[4];
+OSContPadEx gControllerPads[4];
 u8 gControllerBits;
+s8 gGamecubeControllerPort = -1; // HackerSM64: This is set to -1 if there's no GC controller, 0 if there's one in the first port and 1 if there's one in the second port.
 u8 gIsConsole = TRUE; // Needs to be initialized before audio_reset_session is called
 u8 gCacheEmulated = TRUE;
 u8 gBorderHeight;
@@ -107,7 +108,7 @@ struct DemoInput gRecordedDemoInput = { 0 };
  */
 const Gfx init_rdp[] = {
     gsDPPipeSync(),
-    gsDPPipelineMode(G_PM_1PRIMITIVE),
+    gsDPPipelineMode(G_PM_NPRIMITIVE),
 
     gsDPSetScissor(G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT),
     gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
@@ -138,7 +139,6 @@ const Gfx init_rsp[] = {
     gsDPPipeSync(),
     gsSPClearGeometryMode(G_CULL_FRONT | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD),
     gsSPSetGeometryMode(G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK | G_LIGHTING),
-    gsSPNumLights(NUMLIGHTS_1),
     gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
     // @bug Failing to set the clip ratio will result in warped triangles in F3DEX2
     // without this change: https://jrra.zone/n64/doc/n64man/gsp/gSPClipRatio.htm
@@ -394,21 +394,6 @@ void draw_reset_bars(void) {
     osRecvMesg(&gGameVblankQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
 }
 
-void check_cache_emulation() {
-    // Disable interrupts to ensure that nothing evicts the variable from cache while we're using it.
-    u32 saved = __osDisableInt();
-    // Create a variable with an initial value of 1. This value will remain cached.
-    volatile u8 sCachedValue = 1;
-    // Overwrite the variable directly in RDRAM without going through cache.
-    // This should preserve its value of 1 in dcache if dcache is emulated correctly.
-    *(u8*)(K0_TO_K1(&sCachedValue)) = 0;
-    // Read the variable back from dcache, if it's still 1 then cache is emulated correctly.
-    // If it's zero, then dcache is not emulated correctly.
-    gCacheEmulated = sCachedValue;
-    // Restore interrupts
-    __osRestoreInt(saved);
-}
-
 /**
  * Initial settings for the first rendered frame.
  */
@@ -416,16 +401,6 @@ void render_init(void) {
 #ifdef DEBUG_FORCE_CRASH_ON_BOOT
     FORCE_CRASH
 #endif
-    if (IO_READ(DPC_PIPEBUSY_REG) == 0) {
-        gIsConsole = FALSE;
-        gBorderHeight = BORDER_HEIGHT_EMULATOR;
-        gIsVC = IS_VC();
-        check_cache_emulation();
-    } else {
-        gIsConsole = TRUE;
-        gBorderHeight = BORDER_HEIGHT_CONSOLE;
-    }
-
     gGfxPool = &gGfxPools[0];
     set_segment_base_addr(SEGMENT_RENDER, gGfxPool->buffer);
     gGfxSPTask = &gGfxPool->spTask;
@@ -674,7 +649,7 @@ void read_controller_inputs(s32 threadID) {
         if (threadID == THREAD_5_GAME_LOOP) {
             osRecvMesg(&gSIEventMesgQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
         }
-        osContGetReadData(&gControllerPads[0]);
+        osContGetReadDataEx(&gControllerPads[0]);
 #if ENABLE_RUMBLE
         release_rumble_pak_control();
 #endif
@@ -685,13 +660,24 @@ void read_controller_inputs(s32 threadID) {
 
     for (i = 0; i < 2; i++) {
         struct Controller *controller = &gControllers[i];
-
         // if we're receiving inputs, update the controller struct with the new button info.
         if (controller->controllerData != NULL) {
+            // HackerSM64: Swaps Z and L, only on console, and only when playing with a GameCube controller.
+            if (gIsConsole && i == gGamecubeControllerPort) {
+                u32 oldButton = controller->controllerData->button;
+                u32 newButton = oldButton & ~(Z_TRIG | L_TRIG);
+                if (oldButton & Z_TRIG) {
+                    newButton |= L_TRIG;
+                }
+                if (controller->controllerData->l_trig > 85) { // How far the player has to press the L trigger for it to be considered a Z press. 64 is about 25%. 127 would be about 50%.
+                    newButton |= Z_TRIG;
+                }
+                controller->controllerData->button = newButton;
+            }
             controller->rawStickX = controller->controllerData->stick_x;
             controller->rawStickY = controller->controllerData->stick_y;
-            controller->buttonPressed = controller->controllerData->button
-                                        & (controller->controllerData->button ^ controller->buttonDown);
+            controller->buttonPressed = ~controller->buttonDown & controller->controllerData->button;
+            controller->buttonReleased = ~controller->controllerData->button & controller->buttonDown;
             // 0.5x A presses are a good meme
             controller->buttonDown = controller->controllerData->button;
             adjust_analog_stick(controller);
@@ -699,6 +685,7 @@ void read_controller_inputs(s32 threadID) {
             controller->rawStickX = 0;
             controller->rawStickY = 0;
             controller->buttonPressed = 0;
+            controller->buttonReleased = 0;
             controller->buttonDown = 0;
             controller->stickX = 0;
             controller->stickY = 0;
@@ -715,6 +702,7 @@ void read_controller_inputs(s32 threadID) {
     gPlayer3Controller->stickY = gPlayer1Controller->stickY;
     gPlayer3Controller->stickMag = gPlayer1Controller->stickMag;
     gPlayer3Controller->buttonPressed = gPlayer1Controller->buttonPressed;
+    gPlayer3Controller->buttonReleased = gPlayer1Controller->buttonReleased;
     gPlayer3Controller->buttonDown = gPlayer1Controller->buttonDown;
 }
 
@@ -733,7 +721,9 @@ void init_controllers(void) {
 #ifdef EEP
     // strangely enough, the EEPROM probe for save data is done in this function.
     // save pak detection?
-    gEepromProbe = osEepromProbe(&gSIEventMesgQueue);
+    gEepromProbe = gIsVC
+                 ? osEepromProbeVC(&gSIEventMesgQueue)
+                 : osEepromProbe  (&gSIEventMesgQueue);
 #endif
 #ifdef SRAM
     gSramProbe = nuPiInitSram();
@@ -757,6 +747,15 @@ void init_controllers(void) {
             gControllers[cont].statusData = &gControllerStatuses[port];
             gControllers[cont++].controllerData = &gControllerPads[port];
         }
+    }
+    if ((__osControllerTypes[1] == CONT_TYPE_GCN) && (gIsConsole)) {
+        gGamecubeControllerPort = 1;
+        gPlayer1Controller = &gControllers[1];
+    } else {
+        if (__osControllerTypes[0] == CONT_TYPE_GCN) {
+            gGamecubeControllerPort = 0;
+        }
+        gPlayer1Controller = &gControllers[0];
     }
 }
 
@@ -837,7 +836,7 @@ void thread5_game_loop(UNUSED void *arg) {
 #if ENABLE_RUMBLE
             block_until_rumble_pak_free();
 #endif
-            osContStartReadData(&gSIEventMesgQueue);
+            osContStartReadDataEx(&gSIEventMesgQueue);
         }
 
         audio_game_loop_tick();

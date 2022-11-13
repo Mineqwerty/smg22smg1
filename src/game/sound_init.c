@@ -17,6 +17,8 @@
 #include "puppyprint.h"
 #include "profiling.h"
 
+#include "config/config_audio.h"
+
 #define MUSIC_NONE 0xFFFF
 
 static OSMesgQueue sSoundMesgQueue;
@@ -73,7 +75,8 @@ static u32 sMenuSoundsExtra[] = {
     SOUND_AIR_BLOW_FIRE,
     SOUND_ENV_ELEVATOR4,
 };
-static s8 sPaintingEjectSoundPlayed = FALSE;
+
+s8 gPaintingEjectSoundPlayed = FALSE;
 
 void play_menu_sounds_extra(s32 a, void *b);
 
@@ -185,15 +188,15 @@ void play_menu_sounds(s16 soundMenuFlags) {
  * Called from threads: thread5_game_loop
  */
 void play_painting_eject_sound(void) {
-    if (gRipplingPainting != NULL && gRipplingPainting->state == PAINTING_ENTERED) {
+    if (gRipplingPaintingObject != NULL && gRipplingPaintingObject->oPaintingState == PAINTING_ENTERED) {
         // ripple when Mario enters painting
-        if (!sPaintingEjectSoundPlayed) {
+        if (!gPaintingEjectSoundPlayed) {
             play_sound(SOUND_GENERAL_PAINTING_EJECT,
                        gMarioStates[0].marioObj->header.gfx.cameraToObject);
         }
-        sPaintingEjectSoundPlayed = TRUE;
+        gPaintingEjectSoundPlayed = TRUE;
     } else {
-        sPaintingEjectSoundPlayed = FALSE;
+        gPaintingEjectSoundPlayed = FALSE;
     }
 }
 
@@ -294,7 +297,20 @@ void stop_shell_music(void) {
 /**
  * Called from threads: thread5_game_loop
  */
+
+#ifdef PERSISTENT_CAP_MUSIC
+static s8 sDoResetMusic = FALSE;
+extern void stop_cap_music(void);
+#endif
+
 void play_cap_music(u16 seqArgs) {
+#ifdef PERSISTENT_CAP_MUSIC
+    if (sDoResetMusic) {
+        sDoResetMusic = FALSE;
+        stop_cap_music();
+    }
+#endif
+
     play_music(SEQ_PLAYER_LEVEL, seqArgs, 0);
     if (sCurrentCapMusic != MUSIC_NONE && sCurrentCapMusic != seqArgs) {
         stop_background_music(sCurrentCapMusic);
@@ -308,6 +324,9 @@ void play_cap_music(u16 seqArgs) {
 void fadeout_cap_music(void) {
     if (sCurrentCapMusic != MUSIC_NONE) {
         fadeout_background_music(sCurrentCapMusic, 600);
+#ifdef PERSISTENT_CAP_MUSIC
+        sDoResetMusic = TRUE;
+#endif
     }
 }
 

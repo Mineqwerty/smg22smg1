@@ -19,6 +19,7 @@
 #include "object_list_processor.h"
 #include "platform_displacement.h"
 #include "spawn_object.h"
+#include "paintings.h"
 #include "puppyprint.h"
 #include "puppylights.h"
 #include "profiling.h"
@@ -517,6 +518,7 @@ void spawn_objects_from_info(UNUSED s32 unused, struct SpawnInfo *spawnInfo) {
 void clear_objects(void) {
     s32 i;
 
+    gEnteredPaintingObject = NULL;
     gTHIWaterDrained = 0;
     gTimeStopState = 0;
     gMarioObject = NULL;
@@ -552,6 +554,9 @@ void update_terrain_objects(void) {
 
     gObjectCounter += update_objects_in_list(&gObjectLists[OBJ_LIST_SURFACE]);
     profiler_update(PROFILER_TIME_DYNAMIC);
+
+    // If the dynamic surface pool has overflowed, throw an error.
+    assert((uintptr_t)gDynamicSurfacePoolEnd <= (uintptr_t)gDynamicSurfacePool + DYNAMIC_SURFACE_POOL_SIZE, "Dynamic surface pool size exceeded");
 }
 
 /**
@@ -663,6 +668,6 @@ void update_objects(UNUSED s32 unused) {
     }
 
     gPrevFrameObjectCount = gObjectCounter;
-    
+
     profiler_update(PROFILER_TIME_BEHAVIOR_AFTER_MARIO);
 }

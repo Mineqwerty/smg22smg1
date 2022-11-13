@@ -153,7 +153,7 @@
 #define /*0x17C*/ oOpacity                                      OBJECT_FIELD_S32(0x3D)
 #define /*0x180*/ oDamageOrCoinValue                            OBJECT_FIELD_S32(0x3E)
 #define /*0x184*/ oHealth                                       OBJECT_FIELD_S32(0x3F)
-#define /*0x188*/ oBehParams                                    OBJECT_FIELD_S32(0x40)
+#define /*0x188*/ oBehParams                                    OBJECT_FIELD_U32(0x40)
 #define /*0x18C*/ oPrevAction                                   OBJECT_FIELD_S32(0x41)
 #define /*0x190*/ oInteractionSubtype                           OBJECT_FIELD_U32(0x42)
 #define /*0x194*/ oCollisionDistance                            OBJECT_FIELD_F32(0x43)
@@ -606,7 +606,7 @@
 #define /*0x110*/ oIsFloomba OBJECT_FIELD_S32(0x22)
 
 #ifdef INTRO_FLOOMBAS
-#define /*0x1AC*/ oZoomCounter OBJECT_FIELD_S32(0x49)
+#define /*0x1AC*/ oZoomCounter OBJECT_FIELD_U32(0x49)
 #define /*0x1B0*/ oZoomPosZ    OBJECT_FIELD_F32(0x4A)
 #endif
 #endif
@@ -1253,6 +1253,25 @@
 #define /*0x0F4*/ oYoshiBlinkTimer OBJECT_FIELD_S32(0x1B)
 #define /*0x0FC*/ oYoshiChosenHome OBJECT_FIELD_S32(0x1D)
 #define /*0x100*/ oYoshiTargetYaw  OBJECT_FIELD_S32(0x1E)
+
+/* Painting */
+#define /*0x0F4*/ oPaintingData                 OBJECT_FIELD_CVPTR(0x1B)
+#define /*0x0F8*/ oPaintingGroup                OBJECT_FIELD_S16(0x1C, 0)
+#define /*0x0FA*/ oPaintingId                   OBJECT_FIELD_S16(0x1C, 1)
+#define /*0x0FC*/ oPaintingLocalMarioPosX       OBJECT_FIELD_S16(0x1D, 0)
+#define /*0x0FE*/ oPaintingLocalMarioPosY       OBJECT_FIELD_S16(0x1D, 1)
+#define /*0x100*/ oPaintingRippleX              OBJECT_FIELD_S16(0x1E, 0)
+#define /*0x102*/ oPaintingRippleY              OBJECT_FIELD_S16(0x1E, 1)
+#define /*0x104*/ oPaintingUpdateCounter        OBJECT_FIELD_S16(0x1F, 0)
+#define /*0x106*/ oPaintingLastUpdateCounter    OBJECT_FIELD_S16(0x1F, 1)
+#define /*0x108*/ oPaintingCurrFlags            OBJECT_FIELD_S16(0x20, 0)
+#define /*0x10A*/ oPaintingChangedFlags         OBJECT_FIELD_S16(0x20, 1)
+#define /*0x10C*/ oPaintingState                OBJECT_FIELD_S16(0x21, 0)
+#define /*0x10E*/ oPaintingRippleTimer          OBJECT_FIELD_S16(0x21, 1)
+#define /*0x1A4*/ oPaintingCurrRippleMag        OBJECT_FIELD_F32(0x47)
+#define /*0x1A8*/ oPaintingRippleDecay          OBJECT_FIELD_F32(0x48)
+#define /*0x1AC*/ oPaintingCurrRippleRate       OBJECT_FIELD_F32(0x49)
+#define /*0x1B0*/ oPaintingDispersionFactor     OBJECT_FIELD_F32(0x4A)
 
 
 /*Custom general defines:

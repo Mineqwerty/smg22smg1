@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <PR/os_internal_reg.h>
 #include <PR/os_system.h>
 #include <PR/os_vi.h>
 #include <stdio.h>
@@ -6,6 +7,7 @@
 #include "sm64.h"
 #include "audio/external.h"
 #include "game/game_init.h"
+#include "game/debug.h"
 #include "game/memory.h"
 #include "game/sound_init.h"
 #include "buffers/buffers.h"
@@ -13,6 +15,7 @@
 #include "game/main.h"
 #include "game/rumble_init.h"
 #include "game/version.h"
+#include "game/vc_check.h"
 #ifdef UNF
 #include "usb/usb.h"
 #include "usb/debug.h"
@@ -21,6 +24,8 @@
 #include "game/puppylights.h"
 #include "game/profiling.h"
 
+#include "game/vc_check.h"
+
 // Message IDs
 enum MessageIDs {
     MESG_SP_COMPLETE = 100,
@@ -28,6 +33,7 @@ enum MessageIDs {
     MESG_VI_VBLANK,
     MESG_START_GFX_SPTASK,
     MESG_NMI_REQUEST,
+    MESG_RCP_HUNG,
 };
 
 // OSThread gUnkThread; // unused?
@@ -298,12 +304,42 @@ void handle_dp_complete(void) {
     sCurrentDisplaySPTask->state = SPTASK_STATE_FINISHED_DP;
     sCurrentDisplaySPTask = NULL;
 }
+
+OSTimer RCPHangTimer;
+void start_rcp_hang_timer(void) {
+    osSetTimer(&RCPHangTimer, OS_USEC_TO_CYCLES(3000000), (OSTime) 0, &gIntrMesgQueue, (OSMesg) MESG_RCP_HUNG);
+}
+
+void stop_rcp_hang_timer(void) {
+    osStopTimer(&RCPHangTimer);
+}
+
+void alert_rcp_hung_up(void) {
+    error("RCP is HUNG UP!! Oh! MY GOD!!");
+}
+
+void check_cache_emulation() {
+    // Disable interrupts to ensure that nothing evicts the variable from cache while we're using it.
+    u32 saved = __osDisableInt();
+    // Create a variable with an initial value of 1. This value will remain cached.
+    volatile u8 sCachedValue = 1;
+    // Overwrite the variable directly in RDRAM without going through cache.
+    // This should preserve its value of 1 in dcache if dcache is emulated correctly.
+    *(u8*)(K0_TO_K1(&sCachedValue)) = 0;
+    // Read the variable back from dcache, if it's still 1 then cache is emulated correctly.
+    // If it's zero, then dcache is not emulated correctly.
+    gCacheEmulated = sCachedValue;
+    // Restore interrupts
+    __osRestoreInt(saved);
+}
+
 extern void crash_screen_init(void);
 
 void thread3_main(UNUSED void *arg) {
     setup_mesg_queues();
     alloc_pool();
     load_engine_code_segment();
+    gIsVC = IS_VC();
 #ifndef UNF
     crash_screen_init();
 #endif
@@ -320,6 +356,19 @@ void thread3_main(UNUSED void *arg) {
     osSyncPrintf("Compiler: %s\n", __compiler__);
     osSyncPrintf("Linker  : %s\n", __linker__);
 #endif
+
+    if (IO_READ(DPC_CLOCK_REG) == 0) {
+        gIsConsole = FALSE;
+        gBorderHeight = BORDER_HEIGHT_EMULATOR;
+        if (!gIsVC) {
+            check_cache_emulation();
+        } else {
+            gCacheEmulated = FALSE;
+        }
+    } else {
+        gIsConsole = TRUE;
+        gBorderHeight = BORDER_HEIGHT_CONSOLE;
+    }
 
     create_thread(&gSoundThread, THREAD_4_SOUND, thread4_sound, NULL, gThread4Stack + 0x2000, 20);
     osStartThread(&gSoundThread);
@@ -338,13 +387,18 @@ void thread3_main(UNUSED void *arg) {
                 handle_sp_complete();
                 break;
             case MESG_DP_COMPLETE:
+                stop_rcp_hang_timer();
                 handle_dp_complete();
                 break;
             case MESG_START_GFX_SPTASK:
+                start_rcp_hang_timer();
                 start_gfx_sptask();
                 break;
             case MESG_NMI_REQUEST:
                 handle_nmi_request();
+                break;
+            case MESG_RCP_HUNG:
+                alert_rcp_hung_up();
                 break;
         }
     }

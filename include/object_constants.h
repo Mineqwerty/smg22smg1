@@ -55,6 +55,7 @@ enum ObjFlags {
     OBJ_FLAG_OCCLUDE_SILHOUETTE                = (1 << 20), // 0x00100000
     OBJ_FLAG_OPACITY_FROM_CAMERA_DIST          = (1 << 21), // 0x00200000
     OBJ_FLAG_EMIT_LIGHT                        = (1 << 22), // 0x00400000
+    OBJ_FLAG_PROCESS_OUTSIDE_ROOM              = (1 << 23), // 0x00800000
     OBJ_FLAG_HITBOX_WAS_SET                    = (1 << 30), // 0x40000000
 };
 
@@ -2064,10 +2065,11 @@ enum oActionsSnowmansBottom {
     #define WATER_BOMB_ACT_EXPLODE                          0x3
 
 /* TTC Painting Clock Arm */
-    /* oAction */
-    #define CLOCK_ARM_ACT_CHECK_DEFAULT                     0x0
-    #define CLOCK_ARM_ACT_MOVING                            0x1
-    #define CLOCK_ARM_ACT_STOP                              0x2
+enum oActionsTTCPaintingClockArm {
+    TTC_PAINTING_CLOCK_ARM_WAIT,
+    TTC_PAINTING_CLOCK_ARM_ACT_MOVING,
+    TTC_PAINTING_CLOCK_ARM_ACT_STOPPED,
+};
 
 /* TTC rotating solid */
     /* oBehParams2ndByte */
