@@ -337,4 +337,8 @@ extern const Gfx white_particle_small_unused_dl[];
 
 
 #include "bart/anim_header.h"
+#include "cloudcap_cloud/collision_header.h"
+
+#include "cloudcap_cloud/geo_header.h"
+
 #endif

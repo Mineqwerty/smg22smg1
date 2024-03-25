@@ -51,6 +51,11 @@ u8 gCacheEmulated = TRUE;
 u8 gBorderHeight;
 u8 gFuckUpScreen;
 u8 gPenis;
+u8 gMarioFuckingMelting;
+u16 gCorruptionTimer;
+u8 blakeTimer;
+u8 gFBCheck;
+u8 gConcussions;
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG
 u8 gCustomDebugMode;
 #endif
@@ -484,8 +489,30 @@ void display_and_vsync(void) {
     }
 
 
+    if (gFuckUpScreen == 2) {
+    for (int i = 2; i < 240; i+=3) {
+        for (int j = 2; j < 320; j+=3) {
+            u16 rand = random_u16();
 
+            if (rand < 50) rand += 50;
 
+            if (rand > 200) rand -= 50;
+    gFramebuffers[sRenderingFramebuffer][((j + (i*320)))] = GPACK_RGBA5551(rand, rand, rand, 255);
+    gFramebuffers[sRenderingFramebuffer][((j + (i*320))) - 1] = GPACK_RGBA5551(rand, rand, rand, 255);
+    gFramebuffers[sRenderingFramebuffer][((j + (i*320))) - 2] = GPACK_RGBA5551(rand, rand, rand, 255);
+    gFramebuffers[sRenderingFramebuffer][((j + (i*320))) - 320] = GPACK_RGBA5551(rand, rand, rand, 255);
+    gFramebuffers[sRenderingFramebuffer][((j + (i*320))) - 321] = GPACK_RGBA5551(rand, rand, rand, 255);
+    gFramebuffers[sRenderingFramebuffer][((j + (i*320))) - 322] = GPACK_RGBA5551(rand, rand, rand, 255);
+    gFramebuffers[sRenderingFramebuffer][((j + (i*320))) - 640] = GPACK_RGBA5551(rand, rand, rand, 255);
+    gFramebuffers[sRenderingFramebuffer][((j + (i*320))) - 641] = GPACK_RGBA5551(rand, rand, rand, 255);
+    gFramebuffers[sRenderingFramebuffer][((j + (i*320))) - 642] = GPACK_RGBA5551(rand, rand, rand, 255);
+        
+
+    }
+    }
+
+    }
+    
 
 
 
@@ -505,6 +532,26 @@ void display_and_vsync(void) {
             sRenderingFramebuffer = 0;
         }
     }
+
+
+    if (gFBCheck == 0) {
+        gFramebuffers[0][12] = 0xFF00;
+
+        gFBCheck = 1;
+    }
+    else if (gFBCheck < 10) {
+        gFBCheck += 1;
+    }
+    else if (gFBCheck == 10) {
+        if (gFramebuffers[0][12] == 0xFF00) {
+            gFBCheck = 12;
+        }
+        else {
+            gFBCheck = 11;
+        }
+    }
+
+
     gGlobalTimer++;
 }
 

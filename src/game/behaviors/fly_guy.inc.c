@@ -34,9 +34,9 @@ static void fly_guy_act_idle(void) {
         // If we are >2000 units from home or Mario is <2000 units from us
         if (o->oDistanceToMario >= 25000.0f || o->oDistanceToMario < 2000.0f) {
             // Turn toward home or Mario
-            obj_face_yaw_approach(o->oAngleToMario, 0x300);
+            obj_face_yaw_approach(o->oAngleToMario, 0x2000);
 
-            if (cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x300)) {
+            if (cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x2000)) {
                 o->oAction = FLY_GUY_ACT_APPROACH_MARIO;
             }
         } else {
@@ -60,11 +60,11 @@ static void fly_guy_act_idle(void) {
 static void fly_guy_act_approach_mario(void) {
     // If we are >2000 units from home or Mario is <2000 units from us
     if (o->oDistanceToMario >= 25000.0f || o->oDistanceToMario < 2000.0f) {
-        obj_forward_vel_approach(10.0f, 0.5f);
+        obj_forward_vel_approach(100.0f, 30.0f);
 
         // Turn toward home or Mario
-        obj_face_yaw_approach(o->oAngleToMario, 0x400);
-        cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x200);
+        obj_face_yaw_approach(o->oAngleToMario, 0x2000);
+        cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x2000);
 
         // If facing toward mario and we are either near mario laterally or
         // far above him
@@ -72,13 +72,13 @@ static void fly_guy_act_approach_mario(void) {
             && (o->oPosY - gMarioObject->oPosY > 400.0f || o->oDistanceToMario < 400.0f)) {
             // Either shoot fire or lunge
             if (o->oBehParams2ndByte != FLY_GUY_BP_LUNGES && random_u16() % 2) {
-                o->oAction = FLY_GUY_ACT_SHOOT_FIRE;
+                o->oAction = FLY_GUY_ACT_LUNGE;
                 o->oFlyGuyScaleVel = 0.06f;
             } else {
                 o->oAction = FLY_GUY_ACT_LUNGE;
                 o->oFlyGuyLungeTargetPitch = obj_turn_pitch_toward_mario(-200.0f, 0);
 
-                o->oForwardVel = 25.0f * coss(o->oFlyGuyLungeTargetPitch);
+                o->oForwardVel = 250.0f * coss(o->oFlyGuyLungeTargetPitch);
                 o->oVelY = 25.0f * -sins(o->oFlyGuyLungeTargetPitch);
                 o->oFlyGuyLungeYDecel = -o->oVelY / 30.0f;
             }

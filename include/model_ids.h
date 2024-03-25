@@ -394,7 +394,7 @@
 #define MODEL_BOWSER_SMOKE                0x66        // bowser_impact_smoke_geo
 #define MODEL_BOWSER_FLAMES               0x67        // bowser_flames_geo
 #define MODEL_BOWSER_WAVE                 0x68        // invisible_bowser_accessory_geo
-#define MODEL_BOWSER_NO_SHADOW            0x69        // bowser_geo_no_shadow
+#define MODEL_BOWSER_NO_SHADOW            0x6A        // bowser_geo_no_shadow
 
 // group 13
 #define MODEL_BUB                         0x64        // cheep_cheep_geo
@@ -554,6 +554,7 @@
 
 #define MODEL_WISE_MYSTICAL_TREE        0x100
 #define MODEL_BART        0x101
+#define MODEL_CLOUDCAP_CLOUD        0x102
 
 
 #define MODEL_PAINTING                    0xE4

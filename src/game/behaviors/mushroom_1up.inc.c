@@ -1,4 +1,5 @@
 // mushroom_1up.inc.c
+#include "src/game/game_init.h"
 
 void bhv_1up_interact(void) {
     if (obj_check_if_collided_with_object(o, gMarioObject)) {
@@ -16,6 +17,10 @@ void bhv_1up_interact(void) {
 #if ENABLE_RUMBLE
         queue_rumble_data(5, 80);
 #endif
+
+    gMarioFuckingMelting = 1;
+    gMarioState->squishTimer = 0;
+
     }
 }
 

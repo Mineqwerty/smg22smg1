@@ -18,3 +18,4 @@
 #include "mario/geo.inc.c"
 
 #include "bart/geo.inc.c"
+#include "cloudcap_cloud/geo.inc.c"

@@ -233,7 +233,7 @@ void bowser_init_camera_actions(void) {
  */
 void bowser_act_wait(void) {
     o->oForwardVel = 0.0f;
-    cur_obj_init_animation_with_sound(BOWSER_ANIM_IDLE);
+    cur_obj_init_animation_with_sound(4);
     bowser_init_camera_actions();
 }
 
@@ -433,7 +433,7 @@ void bowser_reset_fallen_off_stage(void) {
  * Unused, makes Bowser be in idle and after it returns to default action
  */
 void bowser_act_idle(void) {
-    if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_IDLE)) {
+    if (cur_obj_init_animation_and_check_if_near_end(4)) {
         o->oAction = BOWSER_ACT_DEFAULT;
     }
 }
@@ -445,7 +445,7 @@ void bowser_act_default(void) {
     // Set eye state
     o->oBowserEyesShut = FALSE;
     // Set idle animation
-    cur_obj_init_animation_with_sound(BOWSER_ANIM_IDLE);
+    cur_obj_init_animation_with_sound(4);
     // Stop him still
     o->oAngleVelYaw = 0;
     o->oForwardVel = 0.0f;
@@ -827,7 +827,7 @@ s32 bowser_turn_on_timer(s32 time, s16 yaw) {
             o->oSubAction++;
         }
     } else {
-        cur_obj_init_animation_with_sound(BOWSER_ANIM_IDLE);
+        cur_obj_init_animation_with_sound(4);
     }
 
     o->oForwardVel = 0.0f;
@@ -1680,6 +1680,9 @@ void bhv_bowser_loop(void) {
             }
         }
     }
+
+
+    
 }
 
 /**

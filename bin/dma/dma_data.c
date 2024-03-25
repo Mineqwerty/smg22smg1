@@ -1789,3 +1789,4 @@ ALIGNED8 const u8 bart_br_textures_dma[] = {
     ,
 #include "actors/amp/br225.rgba16.inc.c"
 };
+

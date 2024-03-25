@@ -54,6 +54,26 @@
             "release_rate": 208,
             "envelope": "envelope0",
             "sound": "08_horn"
+        },
+        "inst9": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "09_squirrel"
+        },
+        "inst10": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "0A_please"
+        },
+        "inst11": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "0B_fart"
+        },
+        "inst12": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "0C_wetfart"
         }
     },
     "instrument_list": [
@@ -65,6 +85,10 @@
         "inst5",
         "inst6",
         "inst7",
-        "inst8"
+        "inst8",
+        "inst9",
+        "inst10",
+        "inst11",
+        "inst12"
     ]
 }

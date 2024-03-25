@@ -739,6 +739,14 @@ void create_dialog_box_with_response(s16 dialog) {
     }
 }
 
+void create_dialog_box_with_song(s16 dialog) {
+    if (gDialogID == DIALOG_NONE) {
+        gDialogID = dialog;
+        gDialogBoxType = DIALOG_TYPE_ROTATE;
+        gLastDialogResponse = 2;
+    }
+}
+
 void reset_dialog_render_state(void) {
     level_set_transition(0, NULL);
 
@@ -753,8 +761,12 @@ void reset_dialog_render_state(void) {
 }
 
 void render_dialog_box_type(struct DialogEntry *dialog, s8 linesPerBox) {
-    create_dl_translation_matrix(MENU_MTX_NOPUSH, dialog->leftOffset, dialog->width, 0);
-
+    if (gCurrLevelNum == LEVEL_JRB) {
+    create_dl_translation_matrix(MENU_MTX_NOPUSH, dialog->leftOffset, dialog->width - (gCorruptionTimer / 4), 0);
+    gCorruptionTimer++;
+    } else {
+       create_dl_translation_matrix(MENU_MTX_NOPUSH, dialog->leftOffset, dialog->width, 0); 
+    }
     switch (gDialogBoxType) {
         case DIALOG_TYPE_ROTATE: // Renders a dialog black box with zoom and rotation
             if ((gDialogBoxState == DIALOG_STATE_OPENING)
@@ -1029,6 +1041,22 @@ void render_dialog_triangle_choice(void) {
     gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
 }
 
+void render_dialog_song_choice(void) {
+    if (gDialogBoxState == DIALOG_STATE_VERTICAL) {
+        handle_menu_scrolling(MENU_SCROLL_VERTICAL, &gDialogLineNum, 1, 3);
+    }
+
+    create_dl_translation_matrix(MENU_MTX_NOPUSH, 0, -2 - (gDialogLineNum * 16), 0);
+
+    if (gDialogBoxType == DIALOG_TYPE_ROTATE) {
+        gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
+    } else {
+        gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
+    }
+
+    gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+}
+
 #define X_VAL5 118.0f
 #define Y_VAL5_1 -16
 #define Y_VAL5_2 5
@@ -1240,6 +1268,9 @@ void render_dialog_entries(void) {
 
     if (gLastDialogPageStrPos == -1 && gLastDialogResponse == 1) {
         render_dialog_triangle_choice();
+    }
+    if (gLastDialogPageStrPos == -1 && gLastDialogResponse == 2) {
+        render_dialog_song_choice();
     }
     gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 2, 2, SCREEN_WIDTH - gBorderHeight / 2, SCREEN_HEIGHT - gBorderHeight / 2);
     if (gLastDialogPageStrPos != -1 && gDialogBoxState == DIALOG_STATE_VERTICAL) {

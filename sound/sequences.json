@@ -137,5 +137,38 @@
     ],
     "27_custom_horn": [
         "streamed_audio"
+    ],
+    "28_custom_scary": [
+        "streamed_audio"
+    ],
+    "29_custom_story_of_undertale": [
+        "streamed_audio"
+    ],
+    "2A_custom_sports": [
+        "streamed_audio"
+    ],
+    "2B_custom_nokia": [
+        "streamed_audio"
+    ],
+    "2C_custom_sorting": [
+        "streamed_audio"
+    ],
+    "2D_custom_hamster": [
+        "streamed_audio"
+    ],
+    "2E_custom_cheers": [
+        "streamed_audio"
+    ],
+    "2F_custom_jumpscare": [
+        "streamed_audio"
+    ],
+    "30_custom_static": [
+        "streamed_audio"
+    ],
+    "31_custom_traincar": [
+        "streamed_audio"
+    ],
+    "32_custom_47": [
+        "streamed_audio"
     ]
 }

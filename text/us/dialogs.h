@@ -103,34 +103,18 @@ didnt imprort...\n\
 he has a redcoin"))
 
 DEFINE_DIALOG(DIALOG_009, 1, 5, 30, 200, _("\
-Long time, no see! Wow,\n\
-have you gotten fast!\n\
-Have you been training\n\
-on the sly, or is it the\n\
-power of the Stars?\n\
-I've been feeling down\n\
-about losing the last\n\
-race. This is my home\n\
-course--how about a\n\
-rematch?\n\
-The goal is in\n\
-Windswept Valley.\n\
-Ready?\n\
-\n\
-//Go//// Don't Go"))
+cloud cap\n\
+its not metal cap!"))
 
 DEFINE_DIALOG(DIALOG_010, 1, 4, 30, 200, _("\
-You've stepped on the\n\
-Wing Cap Switch. Wearing\n\
-the Wing Cap, you can\n\
-soar through the sky.\n\
-Now Wing Caps will pop\n\
-out of all the red blocks\n\
-you find.\n\
-\n\
-Would you like to Save?\n\
-\n\
-//Yes////No"))
+hi mario i have some\n\
+pretty neat songs here\n\
+wanna listen to some?\n\
+they r epic!\n\
+story down below\n\
+baseball\n\
+the j\n\
+"))
 
 DEFINE_DIALOG(DIALOG_011, 1, 4, 30, 200, _("\
 You've just stepped on\n\
@@ -175,19 +159,24 @@ Do you want to Save?\n\
 //You Bet//Not Now"))
 
 DEFINE_DIALOG(DIALOG_015, 1, 4, 30, 200, _("\
-You can punch enemies to\n\
-knock them down. Press [A]\n\
-to jump, [B] to punch.\n\
-Press [A] then [B] to Kick.\n\
-To pick something up,\n\
-press [B], too. To throw\n\
-something you're holding,\n\
-press [B] again."))
+Te MEMORY IS LEKING!\n\
+RUUUNNNNMNNN!!!!\n\
+\n\
+"))
 
 DEFINE_DIALOG(DIALOG_016, 1, 3, 30, 200, _("\
-Hop on the shiny shell and\n\
-ride wherever you want to\n\
-go! Shred those enemies!"))
+Raquna: Hi mario remember me?\n\
+i was in the last village\n\
+that you visited\n\
+Mario: oh hi i rember you\n\
+why are you not in\n\
+village this time?\n\
+Raquna: bower terrorised\n\
+us and everybody\n\
+DIED!!!!!\n\
+now i am on the run\n\
+also go say hi to my\n\
+new friends!!"))
 
 DEFINE_DIALOG(DIALOG_017, 1, 4, 30, 200, _("\
 I'm the Big Bob-omb, lord\n\
@@ -216,14 +205,17 @@ this royal turf? I think\n\
 that you cannot!"))
 
 DEFINE_DIALOG(DIALOG_018, 1, 4, 30, 200, _("\
-I'm sleeping because...\n\
-...I'm sleepy. I don't\n\
-like being disturbed.\n\
-Please walk quietly."))
+asoingbob:\n\
+bayahyahyahyah!"))
 
-DEFINE_DIALOG(DIALOG_019, 1, 2, 30, 200, _("\
-Shhh! Please walk\n\
-quietly in the hallway!"))
+DEFINE_DIALOG(DIALOG_019, 1, 5, 30, 200, _("\
+Hey guys what the fuck is\n\
+up you guys my name is\n\
+EmanDan642 and in this\n\
+video we will be \n\
+homeless!\n\
+Thanks for watching \n\
+and fuck you"))
 
 DEFINE_DIALOG(DIALOG_020, 1, 6, 95, 150, _("\
 Deeeee MAa:\n\
@@ -245,16 +237,34 @@ You need a key to open\n\
 this door."))
 
 DEFINE_DIALOG(DIALOG_023, 1, 3, 95, 200, _("\
-This key doesn't fit!\n\
-Maybe it's for the\n\
-basement..."))
+drawn to life\n\
+reference"))
 
-DEFINE_DIALOG(DIALOG_024, 1, 5, 95, 200, _("\
-You need Star power to\n\
-open this door. Recover a\n\
-Power Star from an enemy\n\
-inside one of the castle's\n\
-paintings."))
+DEFINE_DIALOG(DIALOG_024, 1, 4, 95, 200, _("\
+Tell me why you did it,\n\
+ every dream falling apart\n\
+Tell me why you did it\n\
+ after the promise\n\
+Still aching, still aching,\n\
+ oh baby I need your love\n\
+Looking so different,\n\
+ glaring street light\n\
+Heartbeat, heartbeat,\n\
+ it keeps on pounding\n\
+Heartbreak, heartbreak,\n\
+ you tell me goodbye\n\
+Heartbeat, heartbeat,\n\
+ it keeps on pounding\n\
+Heartbreak, heartbreak,\n\
+ you tell me goodbye\n\
+Heartbeat, heartbeat,\n\
+ it keeps on pounding\n\
+Heartbreak, heartbreak,\n\
+ you tell me goodbye\n\
+Heartbeat, heartbeat,\n\
+ it keeps on pounding\n\
+Heartbreak, heartbreak,\n\
+ you tell me goodbye"))
 
 DEFINE_DIALOG(DIALOG_025, 1, 4, 95, 200, _("\
 It takes the power of\n\
@@ -288,29 +298,8 @@ Stars.\n\
 Bwa ha ha!"))
 
 DEFINE_DIALOG(DIALOG_030, 1, 6, 30, 200, _("\
-Hello! The Lakitu Bros.,\n\
-cutting in with a live\n\
-update on Mario's\n\
-progress. He's about to\n\
-learn a technique for\n\
-sneaking up on enemies.\n\
-The trick is this: He has\n\
-to walk very slowly in\n\
-order to walk quietly.\n\
-\n\
-\n\
-\n\
-And wrapping up filming\n\
-techniques reported on\n\
-earlier, you can take a\n\
-look around using [C]> and\n\
-[C]<. Press [C]| to view the\n\
-action from a distance.\n\
-When you can't move the\n\
-camera any farther, the\n\
-buzzer will sound. This is\n\
-the Lakitu Bros.,\n\
-signing off."))
+miso soup: \n\
+image.png"))
 
 DEFINE_DIALOG(DIALOG_031, 1, 5, 30, 200, _("\
 No way! You beat me...\n\
@@ -324,19 +313,20 @@ the winner of the race.\n\
 Congrats, Mario!"))
 
 DEFINE_DIALOG(DIALOG_032, 1, 5, 30, 200, _("\
-If you get the Wing Cap,\n\
-you can fly! Put the cap\n\
-on, then do a Triple\n\
-Jump--jump three times\n\
-in a row--to take off.\n\
-You can fly even higher\n\
-if you blast out of a\n\
-cannon wearing the\n\
-Wing Cap!\n\
-\n\
-Use the [C] Buttons to look\n\
-around while flying, and\n\
-press [Z] to land."))
+hack creators note:\n\
+ok i dont know what\n\
+i did but the game\n\
+gets really weird\n\
+in the next area\n\
+so i think its \n\
+because i applied\n\
+the wrong patch,\n\
+they sait to use\n\
+bps or patch file\n\
+but i used other file\n\
+because i thought i\n\
+could copy code from\n\
+roms into oter roms"))
 
 DEFINE_DIALOG(DIALOG_033, 1, 6, 30, 200, _("\
 hi gyus welcome\n\
@@ -386,26 +376,8 @@ this has been the\n\
 Lakitu Bros."))
 
 DEFINE_DIALOG(DIALOG_035, 1, 5, 30, 200, _("\
-There are four camera, or\n\
-『[C],』 Buttons. Press [C]^\n\
-to look around using the\n\
-Control Stick.\n\
-\n\
-You'll usually see Mario\n\
-through Lakitu's camera.\n\
-It is the camera\n\
-recommended for normal\n\
-play.\n\
-You can change angles by\n\
-pressing [C]>. If you press\n\
-[R], the view switches to\n\
-Mario's camera, which\n\
-is directly behind him.\n\
-Press [R] again to return\n\
-to Lakitu's camera. Press\n\
-[C]| to see Mario from\n\
-afar, using either\n\
-Lakitu's or Mario's view."))
+this mario\n\
+is glogged $"))
 
 DEFINE_DIALOG(DIALOG_036, 1, 5, 30, 200, _("\
 OBSERVATION PLATFORM\n\

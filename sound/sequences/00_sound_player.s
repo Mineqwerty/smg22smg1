@@ -2808,6 +2808,13 @@ sound_ref .sound_general_vanish_sfx
 sound_ref .sound_etrian_step
 sound_ref .sound_bonk
 sound_ref .sound_horn
+sound_ref .sound_squirrel
+sound_ref .sound_please
+sound_ref .sound_fart
+sound_ref .sound_wetfart
+
+
+
 sound_ref .sound_menu_enter_hole
 sound_ref .sound_general_red_coin
 sound_ref .sound_general_birds_fly_away
@@ -4418,6 +4425,30 @@ chan_end
 .sound_horn:
 chan_setbank 0
 chan_setinstr 8
+chan_setlayer 0, .layer_AAAA
+chan_end
+
+.sound_squirrel:
+chan_setbank 0
+chan_setinstr 9
+chan_setlayer 0, .layer_AAAA
+chan_end
+
+.sound_please:
+chan_setbank 0
+chan_setinstr 10
+chan_setlayer 0, .layer_AAAA
+chan_end
+
+.sound_fart:
+chan_setbank 0
+chan_setinstr 11
+chan_setlayer 0, .layer_AAAA
+chan_end
+
+.sound_wetfart:
+chan_setbank 0
+chan_setinstr 12
 chan_setlayer 0, .layer_AAAA
 chan_end
 

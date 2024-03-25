@@ -304,8 +304,21 @@ void bobomb_buddy_act_idle(void) {
         o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x140);
     }
 
+    if (o->oDistanceToMario < 300.0f && o->o104 == 0 && (gMarioState->action == ACT_WALKING || gMarioState->action == ACT_IDLE)) {
+        o->o104 = 1;
+
+        
+        gMarioState->action = ACT_WAITING_FOR_DIALOG;
+        func_80321080(50);
+        create_dialog_box_with_song(10);
+    }
+
+    if (o->oDistanceToMario > 400.0f) {
+        o->o104 = 0;
+    }
+
     if (o->oInteractStatus == INT_STATUS_INTERACTED) {
-        o->oAction = BOBOMB_BUDDY_ACT_TURN_TO_TALK;
+        gMarioState->action = ACT_IDLE;
     }
 }
 

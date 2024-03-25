@@ -26,7 +26,7 @@ s32 cap_set_hitbox(void) {
 
 void cap_despawn(void) {
     if (o->oTimer > 300) {
-        obj_flicker_and_disappear(o, 300);
+        //obj_flicker_and_disappear(o, 300);
     }
 }
 

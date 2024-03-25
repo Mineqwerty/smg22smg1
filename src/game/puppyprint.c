@@ -633,6 +633,106 @@ void puppyprint_render_profiler(void) {
 
     print_set_envcolour(255, 255, 255, 255);
 
+    /**/
+    
+    ALIGNED8 static const Texture scare_textures_0[] = {
+#include "actors/amp/scare0.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_1[] = {
+#include "actors/amp/scare1.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_2[] = {
+    #include "actors/amp/scare2.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_3[] = {
+    #include "actors/amp/scare3.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_4[] = {
+    #include "actors/amp/scare4.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_5[] = {
+    #include "actors/amp/scare5.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_6[] = {
+    #include "actors/amp/scare6.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_7[] = {
+    #include "actors/amp/scare7.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_8[] = {
+    #include "actors/amp/scare8.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_9[] = {
+    #include "actors/amp/scare9.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_10[] = {
+    #include "actors/amp/scare10.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_11[] = {
+    #include "actors/amp/scare11.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_12[] = {
+    #include "actors/amp/scare12.rgba16.inc.c"
+    };
+    ALIGNED8 static const Texture scare_textures_13[] = {
+    #include "actors/amp/scare13.rgba16.inc.c"
+};
+
+
+    if (gMarioState->areaIntro >= 4 && gMarioState->areaIntro < 19) {
+            gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
+            switch (gMarioState->areaIntro) {
+                case 4:
+render_multi_image(&scare_textures_0, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 5:
+render_multi_image(&scare_textures_1, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 6:
+render_multi_image(&scare_textures_2, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 7:
+render_multi_image(&scare_textures_3, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 8:
+render_multi_image(&scare_textures_4, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 9:
+render_multi_image(&scare_textures_5, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 10:
+render_multi_image(&scare_textures_6, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 11:
+render_multi_image(&scare_textures_7, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 12:
+render_multi_image(&scare_textures_8, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 13:
+render_multi_image(&scare_textures_9, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 14:
+render_multi_image(&scare_textures_10, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 15:
+render_multi_image(&scare_textures_11, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 16:
+render_multi_image(&scare_textures_12, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+                case 17:
+render_multi_image(&scare_textures_13, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
+                break;
+            }
+            gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
+            gMarioState->areaIntro++;
+
+            
+            }
+
+            
+
     if (!fDebug) {
         return;
     }

@@ -36,3 +36,12 @@ UNUSED static const u64 binid_5 = 5;
 
 #include "treasure_chest/model.inc.c"
 UNUSED static const u64 binid_6 = 6;
+
+#include "bowser/model.inc.c"
+#include "bowser/anims/data.inc.c"
+#include "bowser/anims/table.inc.c"
+#include "bowser/flames_data.inc.c"
+#include "bowser_flame/model.inc.c"
+
+#include "impact_smoke/model.inc.c"
+#include "impact_ring/model.inc.c"

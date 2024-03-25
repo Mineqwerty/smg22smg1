@@ -1,0 +1,10 @@
+extern const GeoLayout ttc_area_1_geo[];
+extern const GeoLayout ttc_area_1[];
+extern const Collision ttc_area_1_collision[];
+extern const MacroObject ttc_area_1_macro_objs[];
+extern Lights1 ttc_dl_f3dlite_material_002_lights;
+extern Vtx ttc_dl_Cube_mesh_layer_1_vtx_0[24];
+extern Gfx ttc_dl_Cube_mesh_layer_1_tri_0[];
+extern Gfx mat_ttc_dl_f3dlite_material_002[];
+extern Gfx ttc_dl_Cube_mesh_layer_1[];
+extern Gfx ttc_dl_material_revert_render_settings[];

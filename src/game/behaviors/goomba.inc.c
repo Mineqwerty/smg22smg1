@@ -315,6 +315,12 @@ void bhv_goomba_update(void) {
 
     f32 animSpeed;
 
+    
+
+    if (gCorruptionTimer >= 150) {
+    o->oAnimations = chuckya_seg8_anims_0800C070;
+    }
+
     if (obj_update_standard_actions(o->oGoombaScale)) {
         // If this goomba has a spawner and mario moved away from the spawner, unload
         if (o->parentObj != o) {

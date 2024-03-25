@@ -83,12 +83,12 @@ ALIGNED8 static const Texture inside_castle_seg7_texture_light_radial_inverse[] 
 };
 
 // 0x0700A800 - 0x0700B800
-ALIGNED8 static const Texture inside_castle_seg7_texture_0700A800[] = {
+ALIGNED8 const Texture inside_castle_seg7_texture_0700A800[] = {
 #include "levels/castle_inside/17.rgba16.inc.c"
 };
 
 // 0x0700B800 - 0x0700C800
-ALIGNED8 static const Texture inside_castle_seg7_texture_0700B800[] = {
+ALIGNED8 const Texture inside_castle_seg7_texture_0700B800[] = {
 #include "levels/castle_inside/18.rgba16.inc.c"
 };
 
@@ -103,12 +103,12 @@ ALIGNED8 static const Texture inside_castle_seg7_texture_0700D800[] = {
 };
 
 // 0x0700E800 - 0x0700F800
-ALIGNED8 static const Texture inside_castle_seg7_texture_0700E800[] = {
+ALIGNED8 const Texture inside_castle_seg7_texture_0700E800[] = {
 #include "levels/castle_inside/21.rgba16.inc.c"
 };
 
 // 0x0700F800 - 0x07010800
-ALIGNED8 static const Texture inside_castle_seg7_texture_0700F800[] = {
+ALIGNED8 const Texture inside_castle_seg7_texture_0700F800[] = {
 #include "levels/castle_inside/22.rgba16.inc.c"
 };
 

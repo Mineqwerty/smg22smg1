@@ -14,3 +14,7 @@
 #include "bub/geo.inc.c"
 #include "water_ring/geo.inc.c"
 #include "treasure_chest/geo.inc.c"
+#include "bowser_flame/geo.inc.c"
+#include "bowser/geo.inc.c"
+#include "impact_ring/geo.inc.c"
+#include "impact_smoke/geo.inc.c"

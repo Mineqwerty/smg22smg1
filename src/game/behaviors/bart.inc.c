@@ -30,7 +30,13 @@ void bhv_bart_loop(void) {
     gMarioState->pos[1] = o->oPosY;
     gMarioState->pos[2] = o->oPosZ;
 
-    
+    if (gConcussions > 0) {
+    print_text_fmt_int(20, 200, "Concussions: %d", gConcussions);
+    }
+
+     if (gConcussions == 10) {
+        initiate_warp(LEVEL_ENDING, 1, 0x0A, 0);
+     }
 }
 
 void bart_act_idle(void) {

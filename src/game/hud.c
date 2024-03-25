@@ -555,6 +555,7 @@ void render_hud(void) {
         if (gCurrentArea != NULL && gCurrentArea->camera->mode == CAMERA_MODE_INSIDE_CANNON) {
             render_hud_cannon_reticle();
         }
+        if (gCurrLevelNum != LEVEL_WF && gCurrLevelNum != LEVEL_PSS) {
 
 #ifdef ENABLE_LIVES
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
@@ -562,7 +563,7 @@ void render_hud(void) {
         }
 #endif
 
-if (gCurrLevelNum != LEVEL_WF) {
+
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {
             render_hud_coins();
@@ -606,8 +607,9 @@ else {
 #ifdef PUPPYPRINT
         print_set_envcolour(255, 255, 255, 255);
 #endif
-    /*
-    ALIGNED8 static const Texture texture_emerald_grove[] = {
+    /**/
+    
+        ALIGNED8 static const Texture texture_emerald_grove[] = {
         #include "actors/amp/emerald_grove.rgba16.inc.c" 
     };
 
@@ -633,7 +635,7 @@ else {
         #include "actors/amp/abbey.rgba16.inc.c"  
     };
     
-    
+
         if (gMarioState->areaIntro == 1) {
         //render_multi_image(&texture_emerald_grove, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
 
@@ -662,10 +664,13 @@ else {
             gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
             render_multi_image(&texture_abbey, 0, 0, 320, 240, 1, 1, G_CYC_COPY);
         gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
+            gConcussions++;
             gMarioState->areaIntro = 0;
             }
 
-            */
+
+        
+            
     
     }
 }

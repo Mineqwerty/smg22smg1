@@ -139,6 +139,10 @@ void bhv_skeeter_update(void) {
     o->oDeathSound = SOUND_OBJ_SNUFIT_SKEETER_DEATH;
     treat_far_home_as_mario(1000.0f);
 
+    if (gCorruptionTimer >= 250) {
+    o->oAnimations = chuckya_seg8_anims_0800C070;
+    }
+
     cur_obj_update_floor_and_walls();
 
     switch (o->oAction) {

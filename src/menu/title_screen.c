@@ -275,3 +275,12 @@ s32 lvl_intro_update(s16 arg, UNUSED s32 unusedArg) {
         default: return LEVEL_NONE;
     }
 }
+
+u8 lvl_print_blake_text(s16 arg) {
+    print_text(80, 20, "MADE BY BLAKEORAMO");
+    blakeTimer++;
+    if (blakeTimer > 75) {
+        return 1;
+    }
+    return 0;
+}

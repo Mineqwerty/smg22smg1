@@ -34,7 +34,8 @@
 #include "rumble_init.h"
 #include "src/game/game_init.h"
 #include "audio/playback.h"
-
+#include "src/game/ingame_menu.h"
+#include "include/seq_ids.h"
 
 /**************************************************
  *                    ANIMATIONS                  *
@@ -1163,7 +1164,14 @@ u8 sSquishScaleOverTime[16] = { 0x46, 0x32, 0x32, 0x3C, 0x46, 0x50, 0x50, 0x3C,
  * Applies the squish to Mario's model via scaling.
  */
 void squish_mario_model(struct MarioState *m) {
-    if (m->squishTimer != 0xFF) {
+
+    if (gMarioFuckingMelting == 1) {
+        if (m->squishTimer < 0xFF) {
+        m->squishTimer++;
+        }
+        vec3f_set(m->marioObj->header.gfx.scale, 1.0f + ((f32) m->squishTimer / 64.0f), 1.0f - ((f32) m->squishTimer / 255.0f), 1.0f + ((f32) m->squishTimer / 64.0f));
+    }
+    else if (m->squishTimer != 0xFF) {
         // If no longer squished, scale back to default.
         if (m->squishTimer == 0) {
             vec3f_set(m->marioObj->header.gfx.scale, 1.0f, 1.0f, 1.0f);
@@ -1699,12 +1707,46 @@ void queue_rumble_particles(struct MarioState *m) {
 s32 execute_mario_action(UNUSED struct Object *obj) {
     s32 inLoop = TRUE;
 
-    if (gPlayer1Controller->buttonPressed & L_JPAD) {
-        gFuckUpScreen = 1;
+    if (gCurrLevelNum == LEVEL_JRB) {
+        gCorruptionTimer ++;
     }
-    if (gPlayer1Controller->buttonPressed & R_JPAD) {
-        gPenis = 1;
-        
+    else {
+        gCorruptionTimer = 0;
+    }
+
+    if (gFBCheck == 12) {
+    if (gCurrLevelNum != LEVEL_SSL){
+    initiate_warp(LEVEL_SSL, 1, 0x0A, 0);
+    }
+    }
+
+    if (gCurrLevelNum != LEVEL_CASTLE_GROUNDS){
+        gFloorAudio = 0;
+    }
+
+    if (gCurrLevelNum == LEVEL_CCM){
+        gFuckUpScreen = 1;
+
+        if (gDialogResponse == 1) {
+            play_secondary_music(SEQ_STREAMED_STORY_OF_UNDERTALE, 0, 127, 5);
+            gMarioState->action = ACT_IDLE;
+        }
+        if (gDialogResponse == 2) {
+            play_secondary_music(SEQ_STREAMED_SPORTS, 0, 127, 5);
+            gMarioState->action = ACT_IDLE;
+        }
+        if (gDialogResponse == 3) {
+            play_secondary_music(SEQ_STREAMED_NOKIA, 0, 127, 5);
+            gMarioState->action = ACT_IDLE;
+        }
+
+        if (gMarioState->numCoins == 100) {
+            initiate_warp(LEVEL_CASTLE, 1, 0x0A, 0);
+        }
+
+    }
+    else {
+        gFuckUpScreen = 0;
     }
 
     // Updates once per frame:

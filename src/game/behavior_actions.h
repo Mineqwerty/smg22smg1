@@ -559,6 +559,9 @@ void bhv_memory_leak_loop(void);
 
 void bhv_bart_init(void);
 void bhv_bart_loop(void);
+void bhv_cloudcap_cloud_loop(void);
+void bhv_fallguy_loop(void);
+void bhv_etrian_warp_loop(void);
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 

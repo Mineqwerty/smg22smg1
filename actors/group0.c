@@ -35,3 +35,5 @@
 #include "bart/model.inc.c"
 #include "bart/anims/data.inc.c"
 #include "bart/anims/table.inc.c"
+#include "cloudcap_cloud/collision.inc.c"
+#include "cloudcap_cloud/model.inc.c"

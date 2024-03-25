@@ -13,5 +13,6 @@ enum LevelScriptIntroArgs {
 };
 
 s32 lvl_intro_update(s16 arg, UNUSED s32 unusedArg);
+u8 lvl_print_blake_text(s16 arg);
 
 #endif // TITLE_SCREEN_H

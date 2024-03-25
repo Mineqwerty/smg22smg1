@@ -53,6 +53,11 @@ extern u8 gCacheEmulated;
 extern u8 gBorderHeight;
 extern u8 gFuckUpScreen;
 extern u8 gPenis;
+extern u8 gMarioFuckingMelting;
+extern u16 gCorruptionTimer;
+extern u8 blakeTimer;
+extern u8 gFBCheck;
+extern u8 gConcussions;
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG
 extern u8 gCustomDebugMode;
 #endif

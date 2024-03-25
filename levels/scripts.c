@@ -68,6 +68,7 @@ const LevelScript level_main_scripts_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_MARIO,                   mario_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CASTLE_GROUNDS_WARP_PIPE, mario_geo), 
     LOAD_MODEL_FROM_GEO(MODEL_BART,                   bart_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_CLOUDCAP_CLOUD,                   cloudcap_cloud_geo),
     LOAD_MODEL_FROM_GEO(MODEL_SMOKE,                   smoke_geo),
     LOAD_MODEL_FROM_GEO(MODEL_SPARKLES,                sparkles_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BUBBLE,                  bubble_geo),
@@ -216,7 +217,7 @@ const LevelScript script_func_global_2[] = {
 const LevelScript script_func_global_3[] = {
     LOAD_MODEL_FROM_GEO(MODEL_BLARGG,                  blargg_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BULLY,                   bully_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_BULLY_BOSS,              bully_boss_geo),
+    //LOAD_MODEL_FROM_GEO(MODEL_BULLY_BOSS,              bully_boss_geo),
     RETURN(),
 };
 
@@ -299,13 +300,10 @@ const LevelScript script_func_global_12[] = {
 };
 
 const LevelScript script_func_global_13[] = {
-    LOAD_MODEL_FROM_GEO(MODEL_BOWSER,                  bowser_geo),
+    
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_BOMB_CHILD_OBJ,   bowser_bomb_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_BOMB,             bowser_bomb_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_BOWSER_SMOKE,            bowser_impact_smoke_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_BOWSER_FLAMES,           bowser_flames_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_BOWSER_WAVE,             invisible_bowser_accessory_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_BOWSER_NO_SHADOW,        bowser_geo_no_shadow),
+    
     RETURN(),
 };
 
@@ -318,6 +316,11 @@ const LevelScript script_func_global_14[] = {
     LOAD_MODEL_FROM_GEO(MODEL_WATER_MINE,              water_mine_geo),
     LOAD_MODEL_FROM_GEO(MODEL_SEAWEED,                 seaweed_geo),
     LOAD_MODEL_FROM_GEO(MODEL_SKEETER,                 skeeter_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_BOWSER,                  bowser_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_BOWSER_SMOKE,            bowser_impact_smoke_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_BOWSER_FLAMES,           bowser_flames_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_BOWSER_WAVE,             invisible_bowser_accessory_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_BOWSER_NO_SHADOW,        bowser_geo_no_shadow),
     RETURN(),
 };
 

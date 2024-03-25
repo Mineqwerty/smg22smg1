@@ -1305,6 +1305,9 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
     sWarpCheckpointActive = FALSE;
     gCurrLevelNum = levelNum;
     gCurrCourseNum = gLevelToCourseNumTable[levelNum - 1];
+	if (gCurrLevelNum == LEVEL_BBH) return 0;
+	if (gCurrLevelNum == LEVEL_TTC) return 0;
+		if (gCurrLevelNum == LEVEL_SSL) return 0;
 	if (gCurrLevelNum == LEVEL_PSS) return 0;
 	if (gCurrLevelNum == LEVEL_WF) return 0;
 
@@ -1335,6 +1338,21 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
  * Play the "thank you so much for to playing my game" sound.
  */
 s32 lvl_play_the_end_screen_sound(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) {
-    play_sound(SOUND_MENU_THANK_YOU_PLAYING_MY_GAME, gGlobalSoundSource);
+    //play_sound(SOUND_MENU_THANK_YOU_PLAYING_MY_GAME, gGlobalSoundSource);
+    play_secondary_music(SEQ_STREAMED_CHEERS, 0, 127, 2);
+    return TRUE;
+}
+
+s32 lvl_jumpscare(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) {
+    gMarioState->areaIntro = 4;
+    func_80321080(1);
+    play_secondary_music(SEQ_STREAMED_JUMPSCARE, 0, 127, 1);
+    return TRUE;
+}
+
+s32 lvl_static(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) {
+    gFuckUpScreen = 2;
+    func_80321080(1);
+    play_secondary_music(SEQ_STREAMED_STATIC, 0, 127, 1);
     return TRUE;
 }

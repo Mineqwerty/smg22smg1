@@ -89,7 +89,7 @@ void bhv_bowling_ball_roll_loop(void) {
         o->oForwardVel = 70.0f;
     }
 
-    bowling_ball_set_hitbox();
+    //bowling_ball_set_hitbox();
 
     if (followStatus == PATH_REACHED_END) {
         if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 7000)) {
@@ -225,7 +225,7 @@ void bhv_bob_pit_bowling_ball_loop(void) {
     if ((o->oFloor != NULL) && (o->oFloor->normal.x == 0) && (o->oFloor->normal.z == 0)) {
         o->oForwardVel = 28.0f;
     }
-    bowling_ball_set_hitbox();
+    //bowling_ball_set_hitbox();
     set_camera_shake_from_point(SHAKE_POS_BOWLING_BALL, o->oPosX, o->oPosY, o->oPosZ);
     cur_obj_play_sound_1(SOUND_ENV_BOWLING_BALL_ROLL);
     set_object_visibility(o, 3000);
@@ -235,15 +235,19 @@ void bhv_free_bowling_ball_init(void) {
     o->oGravity = 5.5f;
     o->oFriction = 1.0f;
     o->oBuoyancy = 2.0f;
-    vec3f_copy(&o->oHomeVec, &o->oPosVec);
     o->oForwardVel = 0;
     o->oMoveAngleYaw = 0;
 }
 
 void bhv_free_bowling_ball_roll_loop(void) {
-    object_step();
+    //object_step();
 
-    bowling_ball_set_hitbox();
+    //bowling_ball_set_hitbox();
+
+    o->oPosX = gMarioState->pos[0];
+    o->oPosZ = gMarioState->pos[2];
+
+    o->oPosY -= 130.0f;
 
     if (o->oForwardVel > 10.0f) {
         set_camera_shake_from_point(SHAKE_POS_BOWLING_BALL, o->oPosX, o->oPosY, o->oPosZ);
@@ -255,35 +259,13 @@ void bhv_free_bowling_ball_roll_loop(void) {
     //     cur_obj_play_sound_2(SOUND_GENERAL_QUIET_POUND1_LOWPRIO);
     // }
 
-    if (!is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 6000)) {
-        o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
-        cur_obj_become_intangible();
-        vec3f_copy(&o->oPosVec, &o->oHomeVec);
-        bhv_free_bowling_ball_init();
-        o->oAction = FREE_BBALL_ACT_RESET;
+    if (o->oTimer > 10) {
+        obj_mark_for_deletion(o);
     }
 }
 
 void bhv_free_bowling_ball_loop(void) {
     o->oGravity = 5.5f;
-
-    switch (o->oAction) {
-        case FREE_BBALL_ACT_IDLE:
-            if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 3000)) {
-                o->oAction = FREE_BBALL_ACT_ROLL;
-                o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
-                cur_obj_become_tangible();
-            }
-            break;
-
-        case FREE_BBALL_ACT_ROLL:
             bhv_free_bowling_ball_roll_loop();
-            break;
-
-        case FREE_BBALL_ACT_RESET:
-            if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 5000)) {
-                o->oAction = FREE_BBALL_ACT_IDLE;
-            }
-            break;
-    }
+    
 }

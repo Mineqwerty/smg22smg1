@@ -548,5 +548,8 @@ extern const BehaviorScript bhvMovingRedCoin[];
 extern const BehaviorScript bhvBartController[];
 extern const BehaviorScript bhvMemoryLeak[];
 extern const BehaviorScript bhvBart[];
+extern const BehaviorScript bhvCloudcapCloud[];
+extern const BehaviorScript bhvFallGuy[];
+extern const BehaviorScript bhvEtrianWarp[];
 
 #endif // BEHAVIOR_DATA_H
